@@ -6,6 +6,14 @@ import '@shopify/polaris/dist/styles.css';
 import translations from '@shopify/polaris/locales/en.json';
 import ClientRouter from '../components/ClientRouter';
 import Cookies from 'js-cookie';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
+const client = new ApolloClient({
+    fetchOptions: {
+        credentials: 'include'
+    },
+});
 
 class MyApp extends App {
 
@@ -21,7 +29,9 @@ class MyApp extends App {
                 <AppBridgeProvider config={config}>
                  <ClientRouter />
                     <PolarisProvider  i18n={translations}>
+                        <ApolloProvider client={client}>
                         <Component {...pageProps} />
+                        </ApolloProvider>
                     </PolarisProvider >
                 </AppBridgeProvider>
             </React.Fragment>
